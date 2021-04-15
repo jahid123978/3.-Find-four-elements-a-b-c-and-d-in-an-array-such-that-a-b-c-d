@@ -1,0 +1,71 @@
+// 3.-Find-four-elements-a-b-c-and-d-in-an-array-such-that-a-b-c-d
+//Using Brute force time complexity O(n^4)
+#include <bits/stdc++.h>
+using namespace std;
+int find_element(int arr[], int n)
+{
+    int sum1 = 0;
+    int sum2 = 0;
+    for(int i=0; i<n-3; i++)
+    {
+        for(int j=i+1; j<n-2; j++)
+        {
+            for(int k=j+1; k<n-1; k++)
+            {
+                for(int r=k+1; r<n; r++)
+                {
+                    if((arr[i] != arr[j]) && (arr[k] != arr[r]))
+                    {
+                        sum1 = arr[i]+arr[j];
+                        sum2 = arr[k]+arr[r];
+                        if(sum1 == sum2)
+                        {
+                            cout<<arr[i]<<" + "<<arr[j]<<" = "<<arr[k]<<" + "<<arr[r]<<endl;
+                             break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+int main ()
+{
+    int arr[] = {3, 4, 7, 1, 2, 9, 8};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    find_element(arr, n);
+    return 0;
+}
+//Using Hashing time complexity O(nlogn) It's a efficient solution 
+#include <bits/stdc++.h>
+using namespace std;
+bool find_pairs(int arr[], int n)
+{
+    map<int, pair<int, int>>mp;
+    for(int i=0; i<n; i++)
+    {
+        for(int j=i+1; j<n; j++)
+        {
+            int sum = arr[i] + arr[j];
+            if(mp.find(sum) == mp.end())
+            {
+                mp[sum] = make_pair(i, j);
+            }
+            else
+            {
+                pair<int, int>m = mp[sum];
+                cout<<arr[m.first]<<" + "<<arr[m.second]<<" = "<<arr[i]<<" + "<<arr[j];
+                return true;
+                
+            }
+        }
+    }
+    cout<<"No pairs valid"<<endl;
+    return false;
+}
+int main ()
+{
+    int arr[] = {3, 4, 7, 1, 2, 9, 8};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    find_pairs(arr, n);
+}
